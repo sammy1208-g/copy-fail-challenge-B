@@ -1,0 +1,11 @@
+]633;E;echo "=== HITO 3: MITIGACIÓN TEMPORAL ===";6fa3c05f-c6e3-4fc1-bb9e-bc555c009c9e]633;C=== HITO 3: MITIGACIÓN TEMPORAL ===
+Fecha: Mon May 11 13:58:43 UTC 2026
+Hostname: codespaces-1a7c09
+algif_aead en lsmod:
+algif_aead 12288 0 - Live 0xffffffffc0cc3000
+af_alg 32768 1 algif_aead, Live 0xffffffffc0cb1000
+
+Configuración de mitigación:
+install algif_aead /bin/false
+
+Intento de exploit post-mitigación:
